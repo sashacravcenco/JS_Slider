@@ -1,41 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slider</title>
-    <link rel="stylesheet" href="style/style.css">
+	<title>Javascript Image Slider</title>
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 </head>
-
 <body>
-    <div class="container">
-        <ul id="slides">
-            <li class="slide showing">
-                <img src="img/1_slide.jpg" alt="retro_style">
-            </li>
-            <li class="slide">
-                <img src="img/2_slide.jpg" alt="retro_style">
-            </li>
-            <li class="slide">
-                <img src="img/3_slide.jpg" alt="retro_style">
-            </li>
-            <li class="slide">
-                <img src="img/4_slide.jpg" alt="retro_style">
-            </li>
-            <li class="slide">
-                <img src="img/5_slide.jpg" alt="retro_style">
-            </li>
-        </ul>
-
-        <div class="buttons">
-            <button class="controls" id="prev">&lt;</button>
-            <button class="controls" id="pause">&#10074;&#10074;</button>
-            <button class="controls" id="next">&gt;</button>
-        </div>
-    </div>
-
-    <script src="js/script.js"></script>
+	<div class="container">
+		<div class="background">
+			<img src="img/1_slide.jpg" class="bg">
+			<img src="img/2_slide.jpg" class="bg">
+			<img src="img/3_slide.jpg" class="bg">
+			<img src="img/4_slide.jpg" class="bg">
+			<img src="img/5_slide.jpg" class="bg">
+		</div>
+		<div class="slider-container">
+			<div>
+				<div>
+					<div class="slider">
+						<div class="img" id="first">
+							<img src="img/5_slide.jpg">
+						</div>
+						<div class="img">
+							<img src="img/1_slide.jpg">
+						</div>
+						<div class="img">
+							<img src="img/2_slide.jpg">
+						</div>
+						<div class="img">
+							<img src="img/3_slide.jpg">
+						</div>
+						<div class="img">
+							<img src="img/4_slide.jpg">
+						</div>
+						<div class="img">
+							<img src="img/5_slide.jpg">
+						</div>
+						<div class="img" id="last">
+							<img src="img/1_slide.jpg">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<button class="btn" id="prev"><i class="fas fa-chevron-left"></i></button>
+			<button class="btn" id="next"><i class="fas fa-chevron-right"></i></button>
+			<ul>
+				<li class="option" op-index="0"></li>
+				<li class="option" op-index="1"></li>
+				<li class="option" op-index="2"></li>
+				<li class="option" op-index="3"></li>
+				<li class="option" op-index="4"></li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/script.js"></script>
 </body>
-
 </html>

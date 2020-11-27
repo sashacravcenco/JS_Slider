@@ -1,75 +1,75 @@
-var slides = document.querySelectorAll('#slides .slide');
-var currentSlide = 0;
-var slideInterval = setInterval(nextSlide,2000);
-var playing = true;
-var pauseButton = document.getElementById('pause');
-var next = document.getElementById('next');
-var previous = document.getElementById('prev');
+const slider = document.querySelector(".slider");
+const btns = document.querySelectorAll(".btn");
+const slides = document.querySelectorAll(".img");
+const backgrounds = document.querySelectorAll('.bg');
+const options = document.querySelectorAll('.option');
 
-let controls = document.querySelectorAll('.controls');
+var index = 1;
+var op_index = 0;
+var size = slides[index].clientWidth;
 
-for (let i = 0; i < controls.length; i++){
-controls[i].style.display = 'inline-block';
-} 
+update();
 
-function goToSlide(n) {
-    slides[currentSlide].className = 'slide';
-    currentSlide = (n+slides.length)%slides.length;
-    slides[currentSlide].className = 'slide showing';
-}
-function nextSlide() {
-    goToSlide(currentSlide+1);
-}
- 
-function previousSlide() {
-    goToSlide(currentSlide-1);
-}
-function pauseSlideshow() {
-    pauseButton.innerHTML = '&#9658;';
-    playing = false;
-    clearInterval(slideInterval);
-}
- 
-function playSlideshow() {
-    pauseButton.innerHTML = '&#10074;&#10074;';
-    playing = true;
-    slideInterval = setInterval(nextSlide,2000);
+function update(){
+	slider.style.transform = "translateX("+ (-size * index) +"px)";
+
+	backgrounds.forEach(img => img.classList.remove('show'));
+	backgrounds[op_index].classList.add('show');
+
+	options.forEach(option => option.classList.remove('colored'));
+	options[op_index].classList.add('colored');
 }
 
-document.onkeydown = function(e) {
-    event.preventDefault();
+function slide(){
+	slider.style.transition = "transform .5s ease-in-out";
+    update();
+}
 
-    switch (e.keyCode) {
-        case 37:
-            previousSlide();
-            break;
-        case 39:
-            nextSlide();
-            break;
-        case 32:
-            if (playing)
-            pauseSlideshow(); 
-            else playSlideshow();
-            break;
-    }
-};
+function btnCheck(){
+	if(this.id === "prev"){
+		index--;
+		if(op_index === 0){
+			op_index = 4;
+		}
+		else{
+			op_index--;
+		}
+	}
+	else{
+		index++;
+		if(op_index === 4){
+			op_index = 0;
+		}
+		else{
+			op_index++;
+		}
+	}
 
-next.onclick = function() {
-    pauseSlideshow();
-    nextSlide();
-};
-previous.onclick = function() {
-    pauseSlideshow();
-    previousSlide();
-};
- 
-pauseButton.onclick = function() {
-    if(playing) {
-    pauseSlideshow();
-  } else {
-    playSlideshow();
-  }
+	slide();
+}
+
+function optionFunc(){
+	let i = Number(this.getAttribute('op-index'));
+	op_index = i;
+	index = i + 1;
+
+	slide();
 }
 
 
 
+slider.addEventListener('transitionend', () => {
+	if(slides[index].id === "first"){
+		slider.style.transition = "none";
+		index = slides.length - 2;
+		slider.style.transform = "translateX("+ (-size * index) +"px)";
+	}
+	else if(slides[index].id === "last"){
+		slider.style.transition = "none";
+		index = 1;
+		slider.style.transform = "translateX("+ (-size * index) +"px)";
+	}
+})
+
+btns.forEach(btn => btn.addEventListener('click', btnCheck));
+options.forEach(option => option.addEventListener('click', optionFunc));
