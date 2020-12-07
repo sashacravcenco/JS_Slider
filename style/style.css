@@ -1,158 +1,196 @@
-*{
-	padding: 0;
+* {
+	-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+  }
+  
+  html {
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+  }
+  
+  body {
 	margin: 0;
-	box-sizing: border-box;
-}
-
-.container{
-	width: 100vw;
+  }
+  
+  .slides {
+	position: relative;
 	height: 100vh;
-	overflow: hidden;
-	position: relative;
-}
-
-.slider-container{
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	z-index: 0;
-}
-
-.slider-container:after{
-	content: '';
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	background: linear-gradient(45deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7));
-}
-
-.slider-container > div{
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 1;
-}
-
-.slider-container > div > div{
-	overflow: hidden;
-	box-shadow: 0px 0px 61px 0px rgba(0,0,0,0.62);
-}
-
-.slider{
-	width: 800px;
-	display: grid;
-	grid-template-columns: repeat(7, 100%);
-	height: 450px;
-}
-
-.img{
-	position: relative;
-	overflow: hidden;
-}
-
-.img img{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
-}
-
-.content{
-	position:absolute;
-	z-index: 999;
-	width: 800px;
-	height: 450px;
-	left: 50%;
-	top: 50%;
-	transform: translateX(-50%) translateY(-50%);
-}
-
-.btn{
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	padding: 1rem 1.2rem;
-	border-radius: 5px;
-	background: #ddd;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	opacity: 0.5;
-	transition: .3s;
-}
-
-.btn:hover{
-	opacity: 0.8;
-}
-
-#prev{
-	left: 5%;
-}
-
-#next{
-	right: 5%;
-}
-
-ul{
-	position: absolute;
+	margin: 0;
+	padding: 0;
 	list-style: none;
-	display: flex;
-	bottom: 2%;
-	left: 50%;
-	transform: translateX(-50%);
-}
-
-ul li{
-	margin: .3rem;
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	border: 2.5px solid #2ecc71;
-	cursor: pointer;
-}
-
-ul li.colored{
-	background-color: #2ecc71;
-}
-
-.content:before{
-	content: '';
+	background-color: #000000;
+  }
+  
+  .slide {
 	position: absolute;
-	height: 17%;
-	width: 100%;
-    bottom: 0;
-    left: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-}
-
-.background{
-	position: absolute;
-	width: 100%;
-	height: 100%;
 	top: 0;
 	left: 0;
-}
-
-.background .bg{
-	position: absolute;
-	width: 120%;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%) scale(1.2);
+	width: 100%;
+	height: 100%;
+	padding: 40px;
+	-webkit-transition: opacity 1s;
+	-o-transition: opacity 1s;
+	transition: opacity 1s;
 	opacity: 0;
-	transition: .5s;
-}
-
-.bg.show{
+	background-position: 50% 50%;
+	background-size: cover;
+	font-size: 40px;
+  }
+  
+  .slide.active {
+	z-index: 1;
 	opacity: 1;
-}
+  }
+  
+  .controls {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+  }
+  
+  .control-pause {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+		-ms-flex-align: center;
+			align-items: center;
+	-webkit-box-pack: center;
+		-ms-flex-pack: center;
+			justify-content: center;
+	top: calc(50% - 20vh);
+	left: calc(50% - 20vh);
+	height: 40vh;
+	padding: 0;
+	-webkit-transition: opacity 0.25s ease-out;
+	-o-transition: opacity 0.25s ease-out;
+	transition: opacity 0.25s ease-out;
+	opacity: 0;
+  }
+  
+  .control-pause:hover, .control-pause:focus {
+	-webkit-transition: opacity 1s ease-in 0.5s;
+	-o-transition: opacity 1s ease-in 0.5s;
+	transition: opacity 1s ease-in 0.5s;
+	opacity: 1;
+	text-shadow: 0 0 30px rgba(255, 255, 255, 0.062);
+  }
+  
+  .control-prev {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+		-ms-flex-align: center;
+			align-items: center;
+	-webkit-box-pack: center;
+		-ms-flex-pack: center;
+			justify-content: center;
+	left: 0;
+	width: 10%;
+  }
+  
+  .control-prev:hover, .control-prev:focus {
+	background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0)));
+	background: -o-linear-gradient(left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+	background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+	text-shadow: 0 0 10px #ffffff;
+  }
+  
+  .control-next {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	bottom: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+		-ms-flex-align: center;
+			align-items: center;
+	-webkit-box-pack: center;
+		-ms-flex-pack: center;
+			justify-content: center;
+	right: 0;
+	width: 10%;
+  }
+  
+  .control-next:hover, .control-next:focus {
+	background: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0)));
+	background: -o-linear-gradient(right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+	background: linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+	text-shadow: 0 0 10px #ffffff;
+  }
+  
+  .fa-angle-left,
+  .fa-angle-right {
+	color: rgba(255, 255, 255, 0.4);
+	font-size: 40px;
+  }
+  
+  .fa-play-circle,
+  .fa-pause-circle {
+	color: rgba(255, 255, 255, 0.4);
+	font-size: 40vh;
+  }
+  
+  .indicators {
+	position: absolute;
+	z-index: 1;
+	bottom: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	width: 100%;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	-webkit-box-pack: center;
+		-ms-flex-pack: center;
+			justify-content: center;
+  }
+  
+  .indicator {
+	width: 20px;
+	height: 20px;
+	margin: -40px 7.5px 0;
+	border: 3px solid rgba(255, 255, 255, 0.4);
+	border-radius: 50%;
+	outline: none;
+	background: none;
+	background-clip: padding-box;
+  }
+  
+  .indicator:hover {
+	cursor: pointer;
+  }
+  
+  .indicator.active {
+	border-color: #ffffff;
+	-webkit-box-shadow: 0 0 10px #ffffff;
+			box-shadow: 0 0 10px #ffffff;
+  }
+  
+  @media (min-width: 992px) {
+	.control-pause {
+	  cursor: pointer;
+	}
+	.control-prev {
+	  cursor: pointer;
+	}
+	.control-next {
+	  cursor: pointer;
+	}
+	.indicator {
+	  cursor: pointer;
+	}
+  }
